@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using PlantHelper.Classes;
 
 namespace PlantHelper
 {
@@ -13,6 +14,11 @@ namespace PlantHelper
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+
+            using (var context = new DatabaseContext())
+            {
+                context.Database.EnsureCreated();
+            }
         }
 
         public IConfiguration Configuration { get; }
