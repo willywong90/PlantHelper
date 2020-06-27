@@ -36,5 +36,27 @@ namespace PlantHelper.Controllers
                 return BadRequest();
             }
         }
+
+        [HttpPost]
+        [Route("{id}/water")]
+        public IActionResult setWaterDate(int id, [FromBody] DateTime date)
+        {
+            try
+            {
+                Plant plant = dbContext.Plants.FirstOrDefault(i => i.Id == id);
+
+                if (plant != null)
+                {
+                    plant.LastWaterDate = date;
+                    dbContext.SaveChanges();
+                }
+
+                return Ok();
+            } 
+            catch
+            {
+                return BadRequest();
+            }
+        }
     }
 }
